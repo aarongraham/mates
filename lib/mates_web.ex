@@ -23,6 +23,7 @@ defmodule MatesWeb do
 
       import Plug.Conn
       import MatesWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias MatesWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,9 @@ defmodule MatesWeb do
 
       import MatesWeb.ErrorHelpers
       import MatesWeb.Gettext
+      import Phoenix.LiveView,
+             only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2,
+               live_component: 2, live_component: 3, live_component: 4]
       alias MatesWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +54,7 @@ defmodule MatesWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 

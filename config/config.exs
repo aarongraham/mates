@@ -12,7 +12,10 @@ config :mates, MatesWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "DCvXTMQDD3ZBVgmeM2VfbJKd9q+ytmCTMEFLxSYz4qLctg535vM45akhH75JmQXM",
   render_errors: [view: MatesWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Mates.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Mates.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "pjiGWWQ1pFwHsUAq3WrqT17cjuP9HKOcPmFAhHhoa9QeBqJ73r9bTwXFtwIUQVdl"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

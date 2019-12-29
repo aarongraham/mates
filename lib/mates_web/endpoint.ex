@@ -1,6 +1,8 @@
 defmodule MatesWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :mates
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", MatesWeb.UserSocket,
     websocket: true,
     longpoll: false
