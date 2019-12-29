@@ -17,7 +17,7 @@ defmodule MatesWeb.Router do
   scope "/", MatesWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", Live.PageController
   end
 
   # Other scopes may use custom stacks.

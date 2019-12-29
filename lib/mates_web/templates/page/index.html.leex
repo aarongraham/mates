@@ -1,0 +1,15 @@
+<section class="phx-hero">
+  <p>Scan the free agents</p>
+  <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+  <canvas id="canvas" hidden></canvas>
+  <div id="output" hidden>
+    <div id="outputMessage">No QR code detected.</div>
+    <div hidden><b>Data:</b> <span id="outputData"></span></div>
+  </div>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const qrScanner = new QRScanner()
+      qrScanner.start()
+    })
+  </script>
+</section>

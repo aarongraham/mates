@@ -17,6 +17,8 @@ import LiveSocket from "phoenix_live_view"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+import QRScanner from "./qr_scanner"
+window.QRScanner = QRScanner
 
 let liveSocket = new LiveSocket("/live", Socket)
-liveSocket.connect()
+liveSocket.connect();
