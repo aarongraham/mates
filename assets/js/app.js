@@ -20,5 +20,19 @@ import LiveSocket from 'phoenix_live_view'
 import QRScanner from './qr_scanner'
 window.QRScanner = QRScanner
 
-let liveSocket = new LiveSocket('/live', Socket)
+let Hooks = {}
+
+// Would be great if these hooks were in a file related to where it is used
+// Doesn't seem possible however
+Hooks.Scanner = {
+  mounted() {
+    console.log('Mounted Scanner hook')
+    this.el.addEventListener('scanned', event => {
+      console.log(`scanned: ${event.detail}`)
+      this.pushEvent('scanned', event.detail)
+    })
+  },
+}
+
+let liveSocket = new LiveSocket('/live', Socket, { hooks: Hooks })
 liveSocket.connect()
