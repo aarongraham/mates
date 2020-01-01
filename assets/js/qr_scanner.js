@@ -4,8 +4,10 @@ class QRScanner {
   start() {
     const video = document.createElement('video')
     const canvasElement = document.getElementById('canvas')
+    const canvasWrapper = document.getElementById('canvasWrapper')
     const canvas = canvasElement.getContext('2d')
     const loadingMessage = document.getElementById('loadingMessage')
+    const scanTitle = document.getElementById('scanTitle')
     const outputContainer = document.getElementById('output')
     const outputMessage = document.getElementById('outputMessage')
     const outputData = document.getElementById('outputData')
@@ -30,10 +32,11 @@ class QRScanner {
       loadingMessage.innerText = '⌛ Loading video...'
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
         loadingMessage.hidden = true
+        scanTitle.hidden = false
         canvasElement.hidden = false
         outputContainer.hidden = false
-        canvasElement.height = video.videoHeight
-        canvasElement.width = video.videoWidth
+        canvasElement.height = canvasWrapper.clientHeight
+        canvasElement.width = canvasWrapper.clientWidth
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height)
         const imageData = canvas.getImageData(
           0,

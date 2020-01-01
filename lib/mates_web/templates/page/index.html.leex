@@ -1,10 +1,12 @@
 <div class="row">
   <div class="column">
-    <section class="phx-hero">
-      <p>Scan the free agents</p>
+    <section class="scannerBox">
+      <h4 id="scanTitle" hidden>Scan the free agents</h4>
       <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-      <canvas id="canvas" phx-hook="Scanner" hidden></canvas>
-      <div id="output" hidden>
+      <div id="canvasWrapper" class="canvasWrapper">
+        <canvas id="canvas" phx-hook="Scanner" hidden></canvas>
+      </div>
+      <div id="output" class="qrOutputBox" hidden>
         <div id="outputMessage">No QR code detected.</div>
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
       </div>
@@ -14,18 +16,66 @@
           qrScanner.start()
         })
       </script>
+
     </section>
   </div>
-  <div id="scannedMembers" class="column">
-  <ul>
-    <%= for dev <- @devs do %>
-      <li>
-        <div>
-          <%= dev.name %>
-          <img src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
+  <div class="column column-66">
+    <div id="scannedMembers" class="row">
+      <ul class="lineup">
+        <%= for dev <- @devs do %>
+        <li>
+          <div class="headshot">
+            <img src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="column pair">
+        Pair 1
+        <div class="row">
+          <div class="column">
+            Person1
+          </div>
+          <div class="column">
+            Person2
+          </div>
         </div>
-      </li>
-    <% end %>
-  </ul>
+      </div>
+      <div class="column pair">
+        Pair 2
+        <div class="row">
+          <div class="column">
+            Person1
+          </div>
+          <div class="column">
+            Person2
+          </div>
+        </div>
+      </div>
+      <div class="column pair">
+        Pair 3
+        <div class="row">
+          <div class="column">
+            Person1
+          </div>
+          <div class="column">
+            Person2
+          </div>
+        </div>
+      </div>
+      <div class="column pair">
+        Pair 4
+        <div class="row">
+          <div class="column">
+            Person1
+          </div>
+          <div class="column">
+            Person2
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,7 +8,22 @@ defmodule MatesWeb.Live.PageController do
   end
 
   def mount(_session, socket) do
-    {:ok, assign(socket, :devs, MapSet.new())}
+    {:ok,
+     assign(
+       socket,
+       :devs,
+       MapSet.new([
+         %{name: "aaron", image: "/images/aaron.png"},
+         %{name: "abe", image: "/images/abe.png"},
+         %{name: "charlie", image: "/images/charlie.png"},
+         %{name: "diana", image: "/images/diana.png"},
+         %{name: "eric", image: "/images/eric.png"},
+         %{name: "greg", image: "/images/greg.png"},
+         %{name: "harold", image: "/images/harold.png"},
+         %{name: "kelly", image: "/images/kelly.png"},
+         %{name: "mark", image: "/images/mark.png"}
+       ])
+     )}
   end
 
   def handle_event("scanned", value, socket) do

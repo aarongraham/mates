@@ -1,0 +1,88 @@
+.container {
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*width: 100%;*/
+}
+
+/* Alerts and form errors */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.alert p {
+  margin-bottom: 0;
+}
+
+.alert:empty {
+  display: none;
+}
+
+.help-block {
+  color: #a94442;
+  display: block;
+  margin: -1rem 0 2rem;
+}
+
+.canvasWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;
+  float: left;
+  height: 0;
+  line-height: 7rem;
+}
+
+.scannerBox {
+  text-align: center;
+  border-bottom: 1px solid #e3e3e3;
+  background: #eee;
+  border-radius: 6px;
+  padding: 1em;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  height: 100vh;
+}
+
+.qrOutputBox {
+  line-height: 7rem;
+}
+
+.headshot {
+  max-width: 20rem;
+  padding: 0.5rem;
+}
+
+.lineup {
+  list-style-type: none;
+  display: inline-flex;
+}
+
+.pair {
+  border: 1px grey solid;
+  margin: 2rem;
+}
+
+.pair:last-child {
+  margin-right: 0;
+}
