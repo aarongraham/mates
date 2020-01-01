@@ -1,7 +1,5 @@
-/* This file is for your main application css. */
-
-@import "../node_modules/normalize.css/normalize.css";
-@import "../node_modules/milligram/dist/milligram.css";
-@import "./main.css";
-
-@import "../../deps/phoenix_live_view/assets/css/live_view.css";
+@import '../node_modules/normalize.css/normalize.css';
+@import './milligram.css';
+@import '../../deps/phoenix_live_view/assets/css/live_view.css';
+@import './alerts.css';
+@import './main.css';
