@@ -26,11 +26,18 @@ let Hooks = {}
 // Doesn't seem possible however
 Hooks.Scanner = {
   mounted() {
-    console.log('Mounted Scanner hook')
     this.el.addEventListener('scanned', event => {
-      console.log(`scanned: ${event.detail}`)
       this.pushEvent('scanned', event.detail)
     })
+  },
+}
+
+Hooks.Seats = {
+  mounted() {
+    document.dispatchEvent(new Event('seats-shuffled'))
+  },
+  updated() {
+    document.dispatchEvent(new Event('seats-shuffled'))
   },
 }
 

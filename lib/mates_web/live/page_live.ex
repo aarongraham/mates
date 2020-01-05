@@ -8,11 +8,11 @@ defmodule MatesWeb.Live.PageLive do
   end
 
   def mount(_session, socket) do
-    {:ok, assign(socket, devs: MapSet.new(), notice: nil)}
+    {:ok, assign(socket, devs: MapSet.new(), notice: nil, number_of_pairs: 0, shuffled: false)}
   end
 
   def handle_event("all_devs", value, socket) do
-    {:noreply, assign(socket, :devs, MapSet.new(Devs.all()))}
+    {:noreply, assign(socket, :devs, MapSet.new(Devs.all_devs()))}
   end
 
   def handle_event("scanned", value, socket) do
@@ -29,12 +29,35 @@ defmodule MatesWeb.Live.PageLive do
 
   def handle_event("shuffle_pairs", value, %{assigns: %{devs: devs}} = socket) do
     devs_with_positions =
-      MapSet.to_list(devs)
+      devs
       |> Enum.shuffle()
       |> Enum.with_index()
       |> Enum.map(fn {dev, index} -> Map.put(dev, :position, index) end)
       |> MapSet.new()
 
-    {:noreply, assign(socket, devs: devs_with_positions, notice: nil)}
+    number_of_pairs = (MapSet.size(devs) / 2) |> Float.ceil() |> Kernel.trunc()
+
+    {:noreply,
+     assign(socket,
+       devs: devs_with_positions,
+       number_of_pairs: number_of_pairs,
+       shuffled: true,
+       notice: nil
+     )}
+  end
+
+  def handle_event("reset_pairs", value, %{assigns: %{devs: devs}} = socket) do
+    reset_devs =
+      devs
+      |> Enum.map(fn dev -> Map.put(dev, :position, nil) end)
+      |> MapSet.new()
+
+    {:noreply,
+     assign(socket,
+       devs: reset_devs,
+       number_of_pairs: 0,
+       shuffled: false,
+       notice: nil
+     )}
   end
 end

@@ -13,5 +13,9 @@ defmodule Mates.Devs do
   }
 
   def find_from_id(id), do: Map.get(@devs, String.downcase(id))
-  def all(), do: Map.keys(@devs) |> Enum.map(&find_from_id/1)
+
+  def all_devs(),
+    do:
+      ~w{aaron abe diana eric greg harold kelly}
+      |> Enum.map(&find_from_id/1)
 end

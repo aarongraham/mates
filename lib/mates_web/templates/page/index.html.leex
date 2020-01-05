@@ -14,7 +14,11 @@
         <div hidden><b>Data:</b> <span id="outputData"></span></div>
       </div>
       <button class="button" phx-click="all_devs">All devs</button>
-      <button id="shuffleButton" class="button" phx-click="shuffle_pairs">Shuffle Pairs</button>
+      <%= if(@shuffled) do %>
+        <button id="shuffleButton" class="button" phx-click="reset_pairs">Reset</button>
+      <% else %>
+        <button id="shuffleButton" class="button" phx-click="shuffle_pairs">Shuffle Pairs</button>
+      <% end %>
     </section>
   </div>
   <div class="column column-66">
@@ -29,53 +33,24 @@
         <% end %>
       </ul>
     </div>
-    <div class="row">
-      <div class="column pair">
-        Pair 1
-        <div class="row">
-          <div class="column">
-            Person1
-            <div class="seat" id="seat-1"></div>
+    <%= if @number_of_pairs > 0 do %>
+      <div id="seats" class="row" phx-hook="Seats">
+        <%= for pair_number <- 1..@number_of_pairs do %>
+          <div class="column pair">
+            <div class="row">
+              <div class="column">
+                Person1
+                <div class="seat"></div>
+              </div>
+              <div class="column">
+                Person2
+                <div class="seat"></div>
+              </div>
+            </div>
           </div>
-          <div class="column">
-            Person2
-          </div>
-        </div>
+        <% end %>
       </div>
-      <div class="column pair">
-        Pair 2
-        <div class="row">
-          <div class="column">
-            Person1
-          </div>
-          <div class="column">
-            Person2
-          </div>
-        </div>
-      </div>
-      <div class="column pair">
-        Pair 3
-        <div class="row">
-          <div class="column">
-            Person1
-          </div>
-          <div class="column">
-            Person2
-          </div>
-        </div>
-      </div>
-      <div class="column pair">
-        Pair 4
-        <div class="row">
-          <div class="column">
-            Person1
-          </div>
-          <div class="column">
-            Person2
-          </div>
-        </div>
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
@@ -85,16 +60,18 @@
     qrScanner.start()
   })
 
-  document.getElementById("shuffleButton").addEventListener("click", () => {
-    const position1 = document.getElementById("position-1")
-    const seat1 = document.getElementById("seat-1")
+  document.addEventListener("seats-shuffled", () => {
+    const seats = Array.from(document.getElementsByClassName("seat"))
+    seats.forEach((seat, index) => {
+      const position = document.getElementById(`position-${index}`)
+      if(position) {
+        const px = position.getBoundingClientRect().x
+        const py = position.getBoundingClientRect().y
+        const sx = seat.getBoundingClientRect().x
+        const sy = seat.getBoundingClientRect().y
 
-    const px = position1.getBoundingClientRect().x
-    const py = position1.getBoundingClientRect().y
-    const sx = seat1.getBoundingClientRect().x
-    const sy = seat1.getBoundingClientRect().y
-
-    position1.style = `transform: translate(${sx-px}px, ${sy-py}px);`
-
+        position.style = `transform: translate(${sx-px}px, ${sy-py}px);`
+      }
+    })
   })
 </script>
