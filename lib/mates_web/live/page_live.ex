@@ -23,8 +23,8 @@ defmodule MatesWeb.Live.PageLive do
   end
 
   def handle_event("shuffle_pairs", value, %{assigns: %{devs: %{map: map}}} = socket)
-      when map_size(map) < 2 do
-    {:noreply, socket |> assign(:notice, "Need to scan at least 2 devs")}
+      when map_size(map) < 3 do
+    {:noreply, socket |> assign(:notice, "Need to scan at least 3 devs")}
   end
 
   def handle_event("shuffle_pairs", value, %{assigns: %{devs: devs}} = socket) do

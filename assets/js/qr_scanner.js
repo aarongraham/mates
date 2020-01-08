@@ -32,7 +32,6 @@ class QRScanner {
       loadingMessage.innerText = '⌛ Loading video...'
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
         loadingMessage.hidden = true
-        scanTitle.hidden = false
         canvasElement.hidden = false
         outputContainer.hidden = false
         canvasElement.height = canvasWrapper.clientHeight
