@@ -35,7 +35,7 @@
     </div>
     <%= if @number_of_pairs > 0 do %>
       <div id="seats" class="row pairs" phx-hook="Seats">
-        <%= for pair_number <- 1..@number_of_pairs do %>
+        <%= for _pair_number <- 1..@number_of_pairs do %>
           <div class="pair">
             <div class="row">
               <div class="column">

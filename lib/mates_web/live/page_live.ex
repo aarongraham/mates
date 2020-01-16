@@ -11,7 +11,7 @@ defmodule MatesWeb.Live.PageLive do
     {:ok, assign(socket, devs: MapSet.new(), notice: nil, number_of_pairs: 0, shuffled: false)}
   end
 
-  def handle_event("all_devs", value, socket) do
+  def handle_event("all_devs", _value, socket) do
     {:noreply, assign(socket, :devs, MapSet.new(Devs.all_devs()))}
   end
 
@@ -22,12 +22,12 @@ defmodule MatesWeb.Live.PageLive do
     end
   end
 
-  def handle_event("shuffle_pairs", value, %{assigns: %{devs: %{map: map}}} = socket)
+  def handle_event("shuffle_pairs", _value, %{assigns: %{devs: %{map: map}}} = socket)
       when map_size(map) < 3 do
     {:noreply, socket |> assign(:notice, "Need to scan at least 3 devs")}
   end
 
-  def handle_event("shuffle_pairs", value, %{assigns: %{devs: devs}} = socket) do
+  def handle_event("shuffle_pairs", _value, %{assigns: %{devs: devs}} = socket) do
     devs_with_positions =
       devs
       |> Enum.shuffle()
@@ -46,7 +46,7 @@ defmodule MatesWeb.Live.PageLive do
      )}
   end
 
-  def handle_event("reset_pairs", value, %{assigns: %{devs: devs}} = socket) do
+  def handle_event("reset_pairs", _value, %{assigns: %{devs: devs}} = socket) do
     reset_devs =
       devs
       |> Enum.map(fn dev -> Map.put(dev, :position, nil) end)
