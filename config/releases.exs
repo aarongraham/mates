@@ -12,13 +12,14 @@ config :mates, MatesWeb.Endpoint,
     host: canonical_host,
     port: 443
   ],
-  http: [port: 80],
+  http: [port: 4000],
   https: [
-    port: 443,
+    port: 4001,
     cipher_suite: :strong,
     key: {type, encoded},
     certfile: "priv/cert/fullchain.pem"
   ],
+  force_ssl: [hsts: true],
   secret_key_base: secret_key_base,
   server: true
 
