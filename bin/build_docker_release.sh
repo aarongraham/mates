@@ -2,6 +2,6 @@
 
 set -e
 
-docker build \
-  -t exfiddle/mates:latest \
+sudo docker build \
+  -t aarongraham1/mates:latest \
   .

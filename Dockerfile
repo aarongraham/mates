@@ -6,7 +6,8 @@ RUN set -xe \
         build-base \
         git \
         nodejs \
-        npm
+        npm \
+        python
 
 # prepare build dir
 RUN mkdir /app

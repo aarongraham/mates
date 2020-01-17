@@ -7,8 +7,8 @@ mix clean && mix compile --force --warnings-as-errors || (mix clean && false)
 mix test
 
 sudo docker build \
-  -t exfiddle/mates:latest \
-  --output type=local,dest=docker-releases \
+  -t aarongraham1/mates:latest \
   .
 
 # Need to publish to docker hub
+sudo docker push aarongraham1/mates:latest
