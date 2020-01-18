@@ -1,28 +1,30 @@
 # Mates
 Scripts to perform most actions can be found in the bin folder
 
-#Certificates 
-Currently the secret key is passed as a command line arg when starting the docker container (start command in bitbucket).
+#Creating a new VPS in DigitalOcean
+Some steps have not yet been automated and are listed below.
 
-The cert will expire after 3 months (Early April). If you really want to renew the cert then create one manually locally with 
-
-`certbot renew`
-
-Or to create a new one 
-
-`sudo certbot certonly --email agraham19@gmail.com -d mates.exfiddle.com --manual --preferred-challenges dns`
-
-The copy the cert to the project 
-`sudo cp /etc/letsencrypt/live/mates.exfiddle.com/fullchain.pem priv/cert/fullchain.pem`
-
-And copy the secret key to the start command
-`sudo cp /etc/letsencrypt/live/mates.exfiddle.com/privkey.pem`
-
-TODO: Make the cert stuff better by installing certbot on the server and mounting the certs folder to the docker container. That way auto renew can be switched on
+* Create VPS using the official DO docker droplet (Ubuntu)
+* Point domains to IP in Route53
+* `apt update && apt upgrade`
+* `sudo systemctl reboot`
+* Install nginx `apt install nginx`. The default nginx from DO repos should create /etc/nginx/conf.d/ and include this directory in the /etc/nginx/nginx.conf configuration. Check that this is the case as our deploy script depends on them. 
+* `sudo rm /etc/nginx/sites-enabled/default && sudo rm /etc/nginx/sites-available/default`
+* Configure firewall 
+    `sudo ufw default deny incoming` 
+    `sudo ufw default allow outgoing` 
+    `sudo ufw status numbered`
+    Delete all rules that are not ssh `sudo ufw delete X`
+    `sudo ufw allow 'Nginx Full'`
+* Install certbot `sudo apt install certbot python-certbot-nginx`
+* Create certs `sudo certbot certonly --nginx` and follow prompts
+* Login with docker `sudo docker login`
+* Deploy app (See below)
+* Test certs autorenew `sudo certbot renew --dry-run`
 
 #Deploying a new version
 
-`bin/publish.sh`
+`bin/prod/deploy.sh`
 
 Ssh to the prod server and start new release
 ```
@@ -38,7 +40,9 @@ sudo docker run....(full command in bitbucket)
 `docker rm $(docker ps -a -q)`
 `sudo docker system prune`
 
-#Future improvements
+#Possible Future improvements
 * Docker should connect through a unix socket
 * Compression of pages and static assets
-* Make more mobile friendly
+* Make webpage work nicely on mobile
+* Automate more of the deployment, in particular starting the container. Docker-compose?
+* Automate more of the server creation 
