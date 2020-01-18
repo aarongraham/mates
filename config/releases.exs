@@ -1,30 +1,21 @@
 import Config
 
-secret_key_base = System.get_env("SECRET_KEY_BASE")
-canonical_host = System.get_env("CANONICAL_HOST")
+canonical_host = System.fetch_env!("CANONICAL_HOST")
+secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
+live_view_signing_salt = System.fetch_env!("LIVE_VIEW_SIGNING_SALT")
 
-{type, encoded, _atom} =
-  System.get_env("SECRET_KEY") |> Base.decode64!() |> :public_key.pem_decode() |> hd()
+url =
+  if canonical_host == "localhost" do
+    [scheme: "http", host: "localhost", port: 4000]
+  else
+    [scheme: "https", host: canonical_host, port: 443]
+  end
 
 config :mates, MatesWeb.Endpoint,
-  url: [
-    scheme: "https",
-    host: canonical_host,
-    port: 443
-  ],
+  url: url,
   http: [port: 4000],
-  https: [
-    port: 4001,
-    cipher_suite: :strong,
-    key: {type, encoded},
-    certfile: "priv/cert/fullchain.pem"
-  ],
-  force_ssl: [hsts: true],
   secret_key_base: secret_key_base,
+  live_view: [
+    signing_salt: live_view_signing_salt
+  ],
   server: true
-
-# We also recommend setting `force_ssl` in your endpoint, ensuring
-# no data is ever sent via http, always redirecting to https:
-#
-#     config :mates, MatesWeb.Endpoint,
-#       force_ssl: [hsts: true]

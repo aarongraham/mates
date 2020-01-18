@@ -10,5 +10,4 @@ sudo docker build \
   -t aarongraham1/mates:latest \
   .
 
-# Need to publish to docker hub
 sudo docker push aarongraham1/mates:latest

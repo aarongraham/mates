@@ -7,7 +7,6 @@
 # General application configuration
 import Config
 
-# Configures the endpoint
 config :mates, MatesWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "DCvXTMQDD3ZBVgmeM2VfbJKd9q+ytmCTMEFLxSYz4qLctg535vM45akhH75JmQXM",

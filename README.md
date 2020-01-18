@@ -37,3 +37,8 @@ sudo docker run....(full command in bitbucket)
 `sudo docker rm mates`
 `docker rm $(docker ps -a -q)`
 `sudo docker system prune`
+
+#Future improvements
+* Docker should connect through a unix socket
+* Compression of pages and static assets
+* Make more mobile friendly
