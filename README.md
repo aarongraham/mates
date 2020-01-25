@@ -1,48 +1,22 @@
-# Mates
-Scripts to perform most actions can be found in the bin folder
+## Mates
 
-#Creating a new VPS in DigitalOcean
-Some steps have not yet been automated and are listed below.
+A novelty project used to decide how the days pairs will be assigned. 
+The project is in no way useful to anybody outside the group of people that I work with, and honestly, hardly useful to them either. 
 
-* Create VPS using the official DO docker droplet (Ubuntu)
-* Point domains to IP in Route53
-* `apt update && apt upgrade`
-* `sudo systemctl reboot`
-* Install nginx `apt install nginx`. The default nginx from DO repos should create /etc/nginx/conf.d/ and include this directory in the /etc/nginx/nginx.conf configuration. Check that this is the case as our deploy script depends on them. 
-* `sudo rm /etc/nginx/sites-enabled/default && sudo rm /etc/nginx/sites-available/default`
-* Configure firewall 
-    `sudo ufw default deny incoming` 
-    `sudo ufw default allow outgoing` 
-    `sudo ufw status numbered`
-    Delete all rules that are not ssh `sudo ufw delete X`
-    `sudo ufw allow 'Nginx Full'`
-* Install certbot `sudo apt install certbot python-certbot-nginx`
-* Create certs `sudo certbot certonly --nginx` and follow prompts
-* Login with docker `sudo docker login`
-* Deploy app (See below)
-* Test certs autorenew `sudo certbot renew --dry-run`
+Pull requests welcome. 
 
-#Deploying a new version
+### Running the app locally
+`iex -S mix phx.server`
 
-`bin/prod/deploy.sh`
+[http://localhost:4000]()
 
-Ssh to the prod server and start new release
-```
-bin/prod/ssh.sh
-sudo docker stop mates
-sudo docker pull aarongraham1/mates
-sudo docker run....(full command in bitbucket)
-```
+### Running locally in docker
+Scripts to create releases and run in docker can be found in the bin folder
 
-#Helpful docker commands
-`sudo docker ps --all`
-`sudo docker rm mates`
-`docker rm $(docker ps -a -q)`
-`sudo docker system prune`
+### Running the tests
+Sorry, there are none 😲
 
-#Possible Future improvements
-* Docker should connect through a unix socket
-* Compression of pages and static assets
-* Make webpage work nicely on mobile
-* Automate more of the deployment, in particular starting the container. Docker-compose?
-* Automate more of the server creation 
+### Adding new shuffle algorithms
+The important function can be found at `Mates.Devs.shuffle/1` this could be re-written to do something more interesting. 
+It accepts an enumerable of Dev structs and should return an enumerable of Dev structs, in any order, but with their position attribute updated. 
+The front end will then render each person using the position, grouping them from left to right, i.e. \[0 1] \[2 3] \[4 5]
