@@ -2,6 +2,7 @@ defmodule MatesWeb.Live.PageLive do
   use Phoenix.LiveView
 
   alias Mates.Devs
+  alias Mates.Dev
 
   def render(assigns) do
     Phoenix.View.render(MatesWeb.PageView, "index.html", assigns)
@@ -12,11 +13,11 @@ defmodule MatesWeb.Live.PageLive do
   end
 
   def handle_event("all_devs", _value, socket) do
-    {:noreply, assign(socket, :devs, MapSet.new(Devs.all_devs()))}
+    {:noreply, assign(socket, :devs, MapSet.new(Devs.all_developers()))}
   end
 
   def handle_event("scanned", value, socket) do
-    case Devs.find_from_id(value) do
+    case Dev.find_from_id(value) do
       nil -> {:noreply, socket}
       dev -> {:noreply, assign(socket, :devs, MapSet.put(socket.assigns.devs, dev))}
     end
@@ -28,12 +29,7 @@ defmodule MatesWeb.Live.PageLive do
   end
 
   def handle_event("shuffle_pairs", _value, %{assigns: %{devs: devs}} = socket) do
-    devs_with_positions =
-      devs
-      |> Enum.shuffle()
-      |> Enum.with_index()
-      |> Enum.map(fn {dev, index} -> Map.put(dev, :position, index) end)
-      |> MapSet.new()
+    devs_with_positions = Devs.shuffle(devs) |> MapSet.new()
 
     number_of_pairs = (MapSet.size(devs) / 2) |> Float.ceil() |> Kernel.trunc()
 
