@@ -30,7 +30,6 @@ Ssh to the prod server and start new release
 ```
 bin/prod/ssh.sh
 sudo docker stop mates
-sudo docker pull aarongraham1/mates
 sudo docker run....(full command in bitbucket)
 ```
 
