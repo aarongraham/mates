@@ -6,7 +6,13 @@ The project is in no way useful to anybody outside the group of people that I wo
 Pull requests welcome. 
 
 ### Running the app locally
-`iex -S mix phx.server`
+```
+asdf install
+mix deps.get
+npm i --prefix assets
+
+iex -S mix phx.server
+```
 
 [http://localhost:4000]()
 
