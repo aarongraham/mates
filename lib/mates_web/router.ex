@@ -18,10 +18,6 @@ defmodule MatesWeb.Router do
     pipe_through :browser
 
     live "/", Live.PageLive
+    live "/scan", Live.ScanLive
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", MatesWeb do
-  #   pipe_through :api
-  # end
 end

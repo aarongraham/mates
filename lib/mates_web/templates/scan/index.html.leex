@@ -1,0 +1,73 @@
+<%= if @notice do %>
+  <p class="alert alert-info" role="alert"><%= @notice %></p>
+<% end %>
+<div class="row">
+  <div class="column">
+    <section class="scannerBox">
+      <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+      <div id="canvasWrapper" class="canvasWrapper">
+        <canvas id="canvas" phx-hook="Scanner" hidden></canvas>
+      </div>
+      <div id="output" class="qrOutputBox" hidden>
+        <div id="outputMessage">No QR code detected</div>
+        <div hidden><b>Data:</b> <span id="outputData"></span></div>
+      </div>
+      <button class="button" phx-click="all_devs">All devs</button>
+      <%= if(@shuffled) do %>
+        <button id="shuffleButton" class="button" phx-click="reset_pairs">Reset</button>
+      <% else %>
+        <button id="shuffleButton" class="button" phx-click="shuffle_pairs">Shuffle Pairs</button>
+      <% end %>
+    </section>
+  </div>
+  <div class="column column-66">
+    <div id="scannedMembers" class="row standing-area">
+      <h4 id="scanTitle" <%= if MapSet.size(@devs) > 0, do: "hidden" %>>Scan the free agents</h4>
+      <ul class="lineup">
+        <%= for dev <- @devs do %>
+        <li>
+          <div class="standing-spot">
+            <img class="headshot" id="<%= headshot_position_id(dev)%>" src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= if @number_of_pairs > 0 do %>
+      <div id="seats" class="row pairs" phx-hook="Seats">
+        <%= for _pair_number <- 1..@number_of_pairs do %>
+          <div class="pair">
+            <div class="row">
+              <div class="column">
+                <div class="seat"></div>
+              </div>
+              <div class="column">
+                <div class="seat"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function () {
+    const qrScanner = new QRScanner()
+    qrScanner.start()
+  })
+
+  document.addEventListener("seats-shuffled", () => {
+    const seats = Array.from(document.getElementsByClassName("seat"))
+    seats.forEach((seatElement, index) => {
+      const devElement = document.getElementById(`position-${index}`)
+      if(devElement) {
+        const dev = devElement.getBoundingClientRect()
+        const seat = seatElement.getBoundingClientRect()
+
+        devElement.style.cssText = `transform: translate(${seat.x-dev.x}px, ${seat.y-dev.y}px); width: ${seat.width}px;`
+      }
+    })
+  })
+</script>
