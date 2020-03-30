@@ -2,7 +2,8 @@ defmodule Mates.Dev do
   defstruct [
     :name,
     :image,
-    :position
+    :position,
+    pair: 0
   ]
 
   defp all(),

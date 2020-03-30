@@ -3,40 +3,30 @@
 <% end %>
 <div class="row">
   <div class="column">
-    <section class="scannerBox">
-      <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
-      <div id="canvasWrapper" class="canvasWrapper">
-        <canvas id="canvas" phx-hook="Scanner" hidden></canvas>
-      </div>
-      <div id="output" class="qrOutputBox" hidden>
-        <div id="outputMessage">No QR code detected</div>
-        <div hidden><b>Data:</b> <span id="outputData"></span></div>
-      </div>
-      <button class="button" phx-click="all_devs">All devs</button>
-      <%= if(@shuffled) do %>
-        <button id="shuffleButton" class="button" phx-click="reset_pairs">Reset</button>
-      <% else %>
-        <button id="shuffleButton" class="button" phx-click="shuffle_pairs">Shuffle Pairs</button>
-      <% end %>
-    </section>
-  </div>
-  <div class="column column-66">
     <div id="scannedMembers" class="row standing-area">
-      <h4 id="scanTitle" <%= if MapSet.size(@devs) > 0, do: "hidden" %>>Scan the free agents</h4>
       <ul class="lineup">
         <%= for dev <- @devs do %>
-        <li>
-          <div class="standing-spot">
-            <img class="headshot" id="<%= headshot_position_id(dev)%>" src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
-          </div>
-        </li>
+          <li>
+            <div class="standing-spot">
+              <div phx-click="click_dev" phx-value-developer="<%= dev.name %>" class="headshot-containter <%= if dev.pair > 0, do: "paired", else: "" %> <%= if @shuffled, do: "shuffled", else: "" %>">
+                <img class="headshot" id="<%= headshot_position_id(dev)%>" src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
+                <div class="headshot-text"><%= dev.pair %></div>
+              </div>
+              <div class="delete-button-containter  <%= if @shuffled, do: "shuffled", else: "" %>">
+                <button class="button delete-button" phx-click="delete_dev" phx-value-developer="<%= dev.name %>">Remove</button>
+              </div>
+            </div>
+          </li>
         <% end %>
       </ul>
     </div>
     <%= if @number_of_pairs > 0 do %>
       <div id="seats" class="row pairs" phx-hook="Seats">
-        <%= for _pair_number <- 1..@number_of_pairs do %>
-          <div class="pair">
+        <%= for pair_number <- 1..@number_of_pairs do %>
+          <div class="pair <%= if @dashboard_pair == pair_number, do: "dashboard", else: ""  %>">
+            <div class="row pair-label">
+              Pair <%= pair_number %>
+            </div>
             <div class="row">
               <div class="column">
                 <div class="seat"></div>
@@ -51,13 +41,13 @@
     <% end %>
   </div>
 </div>
+<div class="row">
+  <div class="button-container">
+    <button id="shuffleButton" <%= if @shuffled, do: "disabled=disabled", else: nil %> class="button shuffle-button" phx-click="shuffle_pairs">Shuffle Pairs</button>
+  </div>
+</div>
 
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function () {
-    const qrScanner = new QRScanner()
-    qrScanner.start()
-  })
-
   document.addEventListener("seats-shuffled", () => {
     const seats = Array.from(document.getElementsByClassName("seat"))
     seats.forEach((seatElement, index) => {

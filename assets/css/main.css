@@ -1,58 +1,92 @@
-.canvasWrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 75%;
-  float: left;
-  height: 0;
-  line-height: 7rem;
-}
-
-.button {
-  width: 100%;
-}
-
-.scannerBox {
-  text-align: center;
-  border-bottom: 1px solid #e3e3e3;
-  background: #eee;
-  border-radius: 6px;
-  padding: 1em;
-  margin-bottom: 3rem;
-  font-size: 2rem;
-  height: 100vh;
-}
-
-.qrOutputBox {
-  line-height: 7rem;
-}
-
 .standing-area {
   background-color: #eee;
-  height: 30vh;
+  height: 20em;
   align-items: center;
   justify-content: center;
 }
 
 .standing-spot {
-  padding: 0.5rem;
+  padding: 0.5em;
 }
 
-#scanTitle {
-  text-align: center;
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.headshot {
-  width: 90px;
-  height: 148px;
-  transition: all 1s ease-out;
+.shuffle-button {
+  flex: 1;
+  margin: 0 5em;
+  padding: 2em 0;
   line-height: 0;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.delete-button-containter {
+  display: block;
+  width: 100%;
+  height: 2em;
+  padding: 0.5em 0 0;
+}
+
+.delete-button-containter.shuffled {
+  display: none;
+}
+
+.delete-button {
+  width: 100%;
+  height: 2em;
+  line-height: 1;
+  padding: 0;
+  margin: 0 auto;
+  background-color: #d1d1d1;
+  border-color: #d1d1d1;
 }
 
 .lineup {
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+}
+
+.headshot-containter {
+  position: relative;
+  width: 5.625em;
+  height: 9.25em;
+}
+
+.headshot {
+  width: 5.625em;
+  height: 9.25em;
+  transition: all 1s ease-out;
+  line-height: 0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.headshot-containter .headshot-text {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  text-align: center;
+  font-size: 3em;
+  line-height: 3;
+  color: white;
+  user-select: none;
+  font-weight: bold;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.headshot-containter.paired .headshot-text {
+  display: block;
+}
+
+.headshot-containter.paired.shuffled .headshot-text {
+  display: none;
 }
 
 .pairs {
@@ -65,15 +99,30 @@
 .pair {
   background-color: #eee;
   border-radius: 6px;
-  margin: 2rem;
-  padding: 1.5rem;
+  margin: 1.25em;
+  padding: 1em;
+}
+
+.pair-label {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: .675em;
+}
+
+.dashboard .pair-label {
+  color: white;
+}
+
+.pair.dashboard {
+  background-color: #00ad40;
 }
 
 .pair .column {
-  padding: 0 0.3rem;
+  padding: 0 0.2em;
 }
 
 .seat {
-  width: 90px;
-  height: 148px;
+  width: 5.625em;
+  height: 9.25em;
 }

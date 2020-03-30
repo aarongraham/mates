@@ -1,0 +1,79 @@
+.scan-page .canvasWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;
+  float: left;
+  height: 0;
+  line-height: 7rem;
+}
+
+.scan-page .button {
+  width: 100%;
+}
+
+.scan-page .scannerBox {
+  text-align: center;
+  border-bottom: 1px solid #e3e3e3;
+  background: #eee;
+  border-radius: 6px;
+  padding: 1em;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  height: 100vh;
+}
+
+.scan-page .qrOutputBox {
+  line-height: 7rem;
+}
+
+.scan-page .standing-area {
+  background-color: #eee;
+  height: 30vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.scan-page .standing-spot {
+  padding: 0.5rem;
+}
+
+.scan-page #scanTitle {
+  text-align: center;
+}
+
+.scan-page .headshot {
+  width: 90px;
+  height: 148px;
+  transition: all 1s ease-out;
+  line-height: 0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+.scan-page .lineup {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.scan-page .pairs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.scan-page .pair {
+  background-color: #eee;
+  border-radius: 6px;
+  margin: 2rem;
+  padding: 1.5rem;
+}
+
+.scan-page .pair .column {
+  padding: 0 0.3rem;
+}
+
+.scan-page .seat {
+  width: 90px;
+  height: 148px;
+}
