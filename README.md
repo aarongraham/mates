@@ -20,7 +20,7 @@ iex -S mix phx.server
 Scripts to create releases and run in docker can be found in the bin folder
 
 ### Running the tests
-Sorry, there are none 😲
+Tests are very light because I was lazy 😲 - but you can run `mix test` if you want
 
 ### Adding new shuffle algorithms
 The important function can be found at `Mates.Devs.shuffle/1` this could be re-written to do something more interesting. 

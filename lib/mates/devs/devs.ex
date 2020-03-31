@@ -1,6 +1,5 @@
 defmodule Mates.Devs do
   alias Mates.Dev
-  alias Mates.AgentDev
 
   def all_developers(),
     do:
@@ -28,27 +27,39 @@ defmodule Mates.Devs do
     |> Enum.map(fn dev -> Map.put(dev, :position, 0) end)
   end
 
-  def shuffle_maintaining_pairs(devs) do
-    # I know, this is awful
-
+  def shuffle_maintaining_pairs(devs, shuffle_fn \\ &Enum.shuffle/1) do
     number_of_pairs = number_of_pairs(devs)
 
-    pairs = devs |> Enum.group_by(& &1.pair)
+    grouped_pairs = devs |> Enum.group_by(& &1.pair)
 
-    pairs
-    |> Map.get(0)
-    |> Enum.shuffle()
-    |> AgentDev.start_link()
+    people_in_pairs = Map.delete(grouped_pairs, 0)
+
+    devs_in_no_pair =
+      grouped_pairs
+      |> Map.get(0, [])
+      |> shuffle_fn.()
+
+    organised_devs =
+      devs_in_no_pair
+      |> Enum.reduce(people_in_pairs, fn dev, people_in_pairs ->
+        Enum.reduce_while(1..number_of_pairs, people_in_pairs, fn
+          pair_number, people_in_pairs ->
+            case Map.get(people_in_pairs, pair_number) do
+              [_dev_one, _dev_two] ->
+                {:cont, people_in_pairs}
+
+              [_dev_one | []] ->
+                {:halt, Map.update!(people_in_pairs, pair_number, fn x -> x ++ [dev] end)}
+
+              _ ->
+                {:halt, Map.put(people_in_pairs, pair_number, [dev])}
+            end
+        end)
+      end)
 
     1..number_of_pairs
-    |> Enum.map(&Map.get(pairs, &1, []))
-    |> Enum.map(fn
-      [dev_one, dev_two] -> [dev_one, dev_two]
-      [dev_one | []] -> [dev_one, AgentDev.pop_next_dev()]
-      _ -> [AgentDev.pop_next_dev(), AgentDev.pop_next_dev()]
-    end)
+    |> Enum.map(fn number -> Map.get(organised_devs, number) end)
     |> List.flatten()
-    |> Enum.reject(&is_nil/1)
     |> Enum.with_index()
     |> Enum.map(fn {dev, index} -> Map.put(dev, :position, index) end)
   end
