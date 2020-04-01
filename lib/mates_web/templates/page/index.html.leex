@@ -12,7 +12,7 @@
                 <img class="headshot" id="<%= headshot_position_id(dev)%>" src="<%= Routes.static_path(MatesWeb.Endpoint, dev.image) %>">
                 <div class="headshot-text"><%= dev.pair %></div>
               </div>
-              <div class="delete-button-containter  <%= if @shuffled, do: "shuffled", else: "" %>">
+              <div class="delete-button-container  <%= if @shuffled, do: "shuffled", else: "" %>">
                 <button class="button delete-button" phx-click="delete_dev" phx-value-developer="<%= dev.name %>">Remove</button>
               </div>
             </div>
