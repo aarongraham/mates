@@ -4,7 +4,7 @@ defmodule Mates.DevsTest do
 
   describe "shuffle_maintaining_pairs" do
     test "with half already assigned" do
-      noop_shuffle_fn = &Enum.map(&1, fn x -> x end)
+      noop_shuffle_fn = & &1
 
       devs = [
         %{name: "pair2-1", pair: 2, position: nil},
@@ -28,7 +28,7 @@ defmodule Mates.DevsTest do
     end
 
     test "with all already assigned" do
-      noop_shuffle_fn = &Enum.map(&1, fn x -> x end)
+      noop_shuffle_fn = & &1
 
       devs = [
         %{name: "pair2-1", pair: 2, position: nil},
@@ -52,7 +52,7 @@ defmodule Mates.DevsTest do
     end
 
     test "with none already assigned" do
-      noop_shuffle_fn = &Enum.map(&1, fn x -> x end)
+      noop_shuffle_fn = & &1
 
       devs = [
         %{name: "nopair-1", pair: 0, position: nil},
