@@ -3,7 +3,7 @@ defmodule Mates.Devs do
 
   def all_developers(),
     do:
-      ~w{aaron abe diana eric greg harold kelly}
+      ~w{aaron abe ben diana kelly paul}
       |> Enum.map(&Dev.find_from_id/1)
 
   def number_of_pairs(devs) do

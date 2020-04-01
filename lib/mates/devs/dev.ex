@@ -10,6 +10,7 @@ defmodule Mates.Dev do
     do: %{
       "aaron" => %__MODULE__{name: "aaron", image: "/images/aaron-card.jpg"},
       "abe" => %__MODULE__{name: "abe", image: "/images/abe-card.jpg"},
+      "ben" => %__MODULE__{name: "ben", image: "/images/ben-card.png"},
       "charlie" => %__MODULE__{name: "charlie", image: "/images/charlie-card.jpg"},
       "diana" => %__MODULE__{name: "diana", image: "/images/diana-card.jpg"},
       "eric" => %__MODULE__{name: "eric", image: "/images/eric-card.jpg"},
@@ -17,7 +18,8 @@ defmodule Mates.Dev do
       "harold" => %__MODULE__{name: "harold", image: "/images/harold-card.jpg"},
       "kelly" => %__MODULE__{name: "kelly", image: "/images/kelly-card.jpg"},
       "mark" => %__MODULE__{name: "mark", image: "/images/mark-card.jpg"},
-      "max" => %__MODULE__{name: "max", image: "/images/max-card.png"}
+      "max" => %__MODULE__{name: "max", image: "/images/max-card.png"},
+      "paul" => %__MODULE__{name: "paul", image: "/images/paul-card.png"}
     }
 
   def find_from_id(id), do: Map.get(all(), String.downcase(id))
