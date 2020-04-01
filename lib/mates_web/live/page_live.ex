@@ -12,7 +12,7 @@ defmodule MatesWeb.Live.PageLive do
 
     {:ok,
      assign(socket,
-       devs: devs,
+       devs: devs |> Enum.sort(&(&1.name <= &2.name)),
        notice: nil,
        number_of_pairs: Devs.number_of_pairs(devs),
        shuffled: false,
@@ -62,7 +62,9 @@ defmodule MatesWeb.Live.PageLive do
   end
 
   def handle_event("shuffle_pairs", _value, %{assigns: %{devs: devs}} = socket) do
-    devs_with_positions = Devs.shuffle_maintaining_pairs(devs)
+    devs_with_positions =
+      Devs.shuffle_maintaining_pairs(devs)
+      |> Enum.sort(&(&1.name <= &2.name))
 
     number_of_pairs = Devs.number_of_pairs(devs)
 
